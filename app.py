@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -10,9 +10,9 @@ def receive_location():
         latitude = data['latitude']
         # Do something with longitude and latitude, like saving to a database
         print(f"Received location: Longitude - {longitude}, Latitude - {latitude}")
-        return {'message': 'Location received successfully'}, 200
+        return jsonify({'message': 'Location received successfully', 'longitude': longitude, 'latitude': latitude}), 200
     else:
-        return {'error': 'Longitude and latitude not provided'}, 400
+        return jsonify({'error': 'Longitude and latitude not provided'}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)
